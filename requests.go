@@ -38,24 +38,17 @@ func SearchUrl(request ItunesSearchRequest) string {
 	}
 	Url.Path += "/search"
 	parameters := url.Values{}
-	if request.Term != "" {
-		parameters.Add("term", request.Term)
+	addParameter := func(key String, value String) {
+		if value != "" {
+			parameters.Add(key, value)
+		}
 	}
-	if request.Country != "" {
-		parameters.Add("country", request.Country)
-	}
-	if request.Media != "" {
-		parameters.Add("media", request.Media)
-	}
-	if request.Entity != "" {
-		parameters.Add("entity", request.Entity)
-	}
-	if request.Attribute != "" {
-		parameters.Add("attribute", request.Attribute)
-	}
-	if request.Limit != "" {
-		parameters.Add("limit", request.Limit)
-	}
+	addParameter("term", request.Term)
+	addParameter("country", request.Country)
+	addParameter("media", request.Media)
+	addParameter("entity", request.Entity)
+	addParameter("attribute", request.Attribute)
+	addParameter("limit", request.Limit)
 	if request.Explicit == false {
 		parameters.Add("explicit", "no")
 	}
@@ -72,28 +65,39 @@ func FindUrl(request ItunesFindRequest) string {
 	}
 	Url.Path += "/lookup"
 	parameters := url.Values{}
-
-	if request.ItunesId != "" {
-		parameters.Add("id", request.ItunesId)
+	addParameter := func(key String, value String) {
+		if value != "" {
+			parameters.Add(key, value)
+		}
 	}
-	if request.AmgArtistId != "" {
-		parameters.Add("amgArtistId", request.AmgArtistId)
-	}
-	if request.AmgAlbumId != "" {
-		parameters.Add("amgAlbumId", request.AmgAlbumId)
-	}
-	if request.AmgVideoId != "" {
-		parameters.Add("amgVideoId", request.AmgVideoId)
-	}
-	if request.Entity != "" {
-		parameters.Add("entity", request.Entity)
-	}
-	if request.Isbn != "" {
-		parameters.Add("isbn", request.Isbn)
-	}
-	if request.Upc != "" {
-		parameters.Add("upc", request.Upc)
-	}
+	addParameter("id", request.ItunesId)
+	addParameter("amgArtistId", request.AmgArtistId)
+	addParameter("amgAlbumId", request.AmgAlbumId)
+	addParameter("amgVideoId", request.AmgVideoId)
+	addParameter("entity", request.Entity)
+	addParameter("isbn", request.Isbn)
+	addParameter("upc", request.Upc)
+	// if request.ItunesId != "" {
+	// 	parameters.Add("id", request.ItunesId)
+	// }
+	// if request.AmgArtistId != "" {
+	// 	parameters.Add("amgArtistId", request.AmgArtistId)
+	// }
+	// if request.AmgAlbumId != "" {
+	// 	parameters.Add("amgAlbumId", request.AmgAlbumId)
+	// }
+	// if request.AmgVideoId != "" {
+	// 	parameters.Add("amgVideoId", request.AmgVideoId)
+	// }
+	// if request.Entity != "" {
+	// 	parameters.Add("entity", request.Entity)
+	// }
+	// if request.Isbn != "" {
+	// 	parameters.Add("isbn", request.Isbn)
+	// }
+	// if request.Upc != "" {
+	// 	parameters.Add("upc", request.Upc)
+	// }
 	Url.RawQuery = parameters.Encode()
 	return Url.String()
 }
